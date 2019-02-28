@@ -12,7 +12,11 @@ namespace ReciteWords.Controller
 {
     class XMLController
     {
-        //用来初始化一个完全新的个人单词列表
+        /// <summary>
+        /// 用来初始化一个完全新的个人单词列表
+        /// </summary>
+        /// <param name="name">xml文档的名字</param>
+        /// <returns></returns>
         public static bool CreateXML(string name)
         {
             string XMLFilePath = ".\\" + name + ".xml";
@@ -36,7 +40,12 @@ namespace ReciteWords.Controller
             return true;
         }
 
-        //用来在未来某个日期内添加单词
+        /// <summary>
+        /// 用来在未来某个日期内添加单词
+        /// </summary>
+        /// <param name="name">要储存的xml文档名字</param>
+        /// <param name="date">新列表的日期</param>
+        /// <returns></returns>
         public static bool AddDate(string name, string date)
         {
             string XMLFilePath = ".\\" + name + ".xml";
@@ -64,7 +73,14 @@ namespace ReciteWords.Controller
                 return false;
         }
 
-        //用来在某个日期单词列表内添加新的单词
+
+        /// <summary>
+        /// 用来在某个日期单词列表内添加新的单词
+        /// </summary>
+        /// <param name="name">xml文档名</param>
+        /// <param name="date">存储到的日期</param>
+        /// <param name="word">存储的单词</param>
+        /// <returns></returns>
         public static bool AddWord(string name, string date, Word word)
         {
             string XMLFilePath = ".\\" + name + ".xml";
