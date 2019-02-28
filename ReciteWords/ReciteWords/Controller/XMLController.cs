@@ -22,7 +22,7 @@ namespace ReciteWords.Controller
         /// <returns></returns>
         public static bool CreateXML(string name)
         {
-            string XMLFilePath = ".\\" + name + ".xml";
+            string XMLFilePath = ".\\DontTouch\\usr\\" + name + ".xml";
             if (!File.Exists(XMLFilePath))
             {
                 File.Create(XMLFilePath);
@@ -51,7 +51,7 @@ namespace ReciteWords.Controller
         /// <returns></returns>
         public static bool AddDate(string name, string date)
         {
-            string XMLFilePath = ".\\" + name + ".xml";
+            string XMLFilePath = ".\\DontTouch\\usr\\" + name + ".xml";
             XDocument doc = XDocument.Load(XMLFilePath);
             XElement root = doc.Root;
 
@@ -85,7 +85,7 @@ namespace ReciteWords.Controller
         /// <returns></returns>
         public static bool AddWord(string name, string date, Word word)
         {
-            string XMLFilePath = ".\\" + name + ".xml";
+            string XMLFilePath = ".\\DontTouch\\usr\\" + name + ".xml";
             XDocument doc = XDocument.Load(XMLFilePath);
             XElement root = doc.Root;
 
@@ -124,7 +124,7 @@ namespace ReciteWords.Controller
         /// <returns></returns>
         public static bool DelateDate(string name,string date)
         {
-            string XMLFilePath = ".\\" + name + ".xml";
+            string XMLFilePath = ".\\DontTouch\\user\\" + name + ".xml";
             XDocument doc = XDocument.Load(XMLFilePath);
             XElement root = doc.Root;
 
