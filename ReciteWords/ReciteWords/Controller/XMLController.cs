@@ -10,6 +10,9 @@ using ReciteWords.Model;
 
 namespace ReciteWords.Controller
 {
+    /// <summary>
+    /// 控制个人列表的XML文件
+    /// </summary>
     class XMLController
     {
         /// <summary>
@@ -73,7 +76,6 @@ namespace ReciteWords.Controller
                 return false;
         }
 
-
         /// <summary>
         /// 用来在某个日期单词列表内添加新的单词
         /// </summary>
@@ -112,6 +114,36 @@ namespace ReciteWords.Controller
                 return false;
             }
             return true;
-        } 
+        }
+
+        /// <summary>
+        /// 用来删除某个过去日期的列表记录
+        /// </summary>
+        /// <param name="name">个人单词列表的名字</param>
+        /// <param name="date">需要删除的日期</param>
+        /// <returns></returns>
+        public static bool DelateDate(string name,string date)
+        {
+            string XMLFilePath = ".\\" + name + ".xml";
+            XDocument doc = XDocument.Load(XMLFilePath);
+            XElement root = doc.Root;
+
+            XElement dDate = root.Elements("date").Where(x => x.Attribute("date").Value == date).Single();
+
+            if (dDate == null)
+                return false;
+
+            try
+            {
+                dDate.Remove();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+
+            return true;
+        }
     }
 }

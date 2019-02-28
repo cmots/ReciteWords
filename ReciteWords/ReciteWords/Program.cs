@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace ReciteWords
 {
     static class Program
@@ -17,7 +18,8 @@ namespace ReciteWords
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-            
+
         }
+
     }
 }
