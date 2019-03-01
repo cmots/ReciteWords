@@ -91,14 +91,11 @@ namespace ReciteWords.Controller
             }
         }
 
-<<<<<<< HEAD
-=======
         /// <summary>
         /// 将词库序列号加一
         /// </summary>
         /// <param name="name">词库名</param>
         /// <returns></returns>
->>>>>>> master
         public static bool UpdateIndex(string name)
         {
             string XMLFilePath = ".\\DontTouch\\wordbook\\" + name + ".xml";
@@ -111,13 +108,9 @@ namespace ReciteWords.Controller
             }
             else
             {
-<<<<<<< HEAD
-
-=======
                 int value = Convert.ToInt16(xIndex.Value);
                 xIndex.Value = (value + 1).ToString();
                 return true;
->>>>>>> master
             }
         }
     }
