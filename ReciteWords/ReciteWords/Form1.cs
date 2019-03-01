@@ -19,5 +19,10 @@ namespace ReciteWords
             InitializeComponent();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int wordNum = Convert.ToInt16(textBox1.Text);
+
+        }
     }
 }
