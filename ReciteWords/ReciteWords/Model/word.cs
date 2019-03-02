@@ -14,14 +14,11 @@ namespace ReciteWords.Model
 
         private string phonetic;//音标（使用cdata）
 
-        private int progress;//学习进度（-1：未学习；0：真的完全掌握；1：会了；2：模糊；3：不会）
-
         public string _Word { get => word; set => word = value; }
 
         public string Trans { get => trans; set => trans = value; }
 
         public string Phonetic { get => phonetic; set => phonetic = value; }
 
-        public int Progress { get => progress; set => progress = value; }
     }
 }

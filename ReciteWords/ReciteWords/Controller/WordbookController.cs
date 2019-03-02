@@ -21,23 +21,23 @@ namespace ReciteWords.Controller
         /// <returns></returns>
         public Word ChooseWord(string name,int index)
         {
-            string XMLFilePath = ".\\DontTouch\\" + name + ".xml";
-            XDocument doc = XDocument.Load(XMLFilePath);
-            XElement root = doc.Root;
             Word word = new Word();
             try
             {
-                //XElement xItem = root.Elements("item").Where(x => (int)x.Element("progress") == -1).First();
-                XElement xItem = root.Elements("item").ElementAtOrDefault(index);
-                if ((int)xItem.Element("progress") == -1)
+                string XMLFilePath = ".\\DontTouch\\" + name + ".xml";
+                XDocument doc = XDocument.Load(XMLFilePath);
+                XElement root = doc.Root;
+                try
                 {
+                    XElement xItem = root.Elements("item").ElementAtOrDefault(index);
                     word._Word = xItem.Element("word").Value;
                     word.Trans = xItem.Element("trans").Value;
                     word.Phonetic = xItem.Element("phonetic").Value;
                 }
-                else
+                catch (Exception e)
                 {
-                    word._Word = "根据序列号找到了一个单词，但显示它已经被背过了,而这种情况是不可能出现的";
+                    word._Word = e.Message;
+                    return word;
                 }
             }
             catch(Exception e)
@@ -53,9 +53,9 @@ namespace ReciteWords.Controller
         /// </summary>
         /// <param name="name">词库名</param>
         /// <returns></returns>
-        public static bool MakeIndex(string name)
+        public void MakeIndex(string name)
         {
-            string XMLFilePath = ".\\DontTouch\\wordbook\\" + name + ".xml";
+            string XMLFilePath = ".\\DontTouch\\" + name + ".xml";
             XDocument doc = XDocument.Load(XMLFilePath);
             XElement root = doc.Root;
 
@@ -65,9 +65,8 @@ namespace ReciteWords.Controller
                 XElement nIndex = new XElement("index");
                 nIndex.SetAttributeValue("index", 0);
                 root.AddFirst(nIndex);
-                return true;
+                doc.Save(XMLFilePath);
             }
-            return false;
         }
 
         /// <summary>
@@ -75,9 +74,9 @@ namespace ReciteWords.Controller
         /// </summary>
         /// <param name="name">词库名</param>
         /// <returns></returns>
-        public static int GetIndex(string name)
+        public int GetIndex(string name)
         {
-            string XMLFilePath = ".\\DontTouch\\wordbook\\" + name + ".xml";
+            string XMLFilePath = ".\\DontTouch\\" + name + ".xml";
             XDocument doc = XDocument.Load(XMLFilePath);
             XElement root = doc.Root;
             XElement xIndex = root.Element("index");
@@ -87,7 +86,7 @@ namespace ReciteWords.Controller
             }
             else
             {
-                return Convert.ToInt16(xIndex.Value);
+                return Convert.ToInt16(xIndex.Attribute("index").Value);
             }
         }
 
@@ -98,7 +97,7 @@ namespace ReciteWords.Controller
         /// <returns></returns>
         public static bool UpdateIndex(string name)
         {
-            string XMLFilePath = ".\\DontTouch\\wordbook\\" + name + ".xml";
+            string XMLFilePath = ".\\DontTouch\\" + name + ".xml";
             XDocument doc = XDocument.Load(XMLFilePath);
             XElement root = doc.Root;
             XElement xIndex = root.Element("index");
@@ -108,8 +107,36 @@ namespace ReciteWords.Controller
             }
             else
             {
-                int value = Convert.ToInt16(xIndex.Value);
-                xIndex.Value = (value + 1).ToString();
+                int value = Convert.ToInt16(xIndex.Attribute("index").Value);
+                xIndex.Attribute("index").SetValue(value + 1);
+                doc.Save(XMLFilePath);
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// 将词库序号减一
+        /// </summary>
+        /// <param name="name">词库名</param>
+        /// <returns></returns>
+        public static bool BackIndex(string name)
+        {
+            string XMLFilePath = ".\\DontTouch\\" + name + ".xml";
+            XDocument doc = XDocument.Load(XMLFilePath);
+            XElement root = doc.Root;
+            XElement xIndex = root.Element("index");
+            if (xIndex == null)
+            {
+                return false;
+            }
+            else
+            {
+                int value = Convert.ToInt16(xIndex.Attribute("index").Value);
+                if (value >= 1)
+                {
+                    xIndex.Attribute("index").SetValue(value - 1);
+                }
+                doc.Save(XMLFilePath);
                 return true;
             }
         }
